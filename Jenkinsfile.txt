@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone RepoA') {
             steps {
-                git 'https://github.com/replyravi/RepoA.git'
+                git credentialsId: 'github-cred', url: 'https://replyravi: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@github.com/replyravi/RepoA.git'
             }
         }
         stage('Generate Doxygen Warnings') {
