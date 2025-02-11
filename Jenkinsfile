@@ -11,12 +11,12 @@ environment {
             }
         }
         stage('Generate Doxygen Warnings') {
-            steps {
-                sh 'doxygen -g Doxyfile'
-                sh 'sed -i "s|WARN_LOGFILE.*|WARN_LOGFILE = warnings.log|" Doxyfile'
-                sh 'doxygen Doxyfile'
-            }
-        }
+    steps {
+        sh 'doxygen -g Doxyfile'
+        sh 'sed -i "" "s|WARN_LOGFILE.*|WARN_LOGFILE = warnings.log|" Doxyfile'  // macOS fix
+        sh 'doxygen Doxyfile'
+    }
+}
         stage('Clone RepoC and Run Parser') {
             steps {
                 git 'https://github.com/replyravi/RepoC.git'
