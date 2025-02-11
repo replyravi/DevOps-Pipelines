@@ -8,7 +8,7 @@ pipeline {
         stage('Clone RepoA') {
             steps {
                 script {
-                    git credentialsId: 'f639731c-49a0-4b27-bd2e-8c5265d792ff', url: 'https://github.com/your-github-username/RepoA.git'
+                    git credentialsId: 'github-cred', url: 'https://replyravi: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@github.com/replyravi/RepoA.git'
                 }
             }
         }
