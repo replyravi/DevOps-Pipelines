@@ -7,5 +7,10 @@ Testing the Jenkins pipelines involved multiple steps:
 - **Checked Jenkinsfile syntax** using:
   ```sh
   jenkins-linter Jenkinsfile
+- **Checked Jenkinsfile syntax** using: Verified required tools are installed:
+  python3 --version
+  doxygen --version
+  git --version
+
   
 
