@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone RepoA') {
             steps {
-                git 'https://github.com/your-github-username/RepoA.git'
+                git 'https://github.com/replyravi/RepoA.git'
             }
         }
         stage('Generate Doxygen Config') {
