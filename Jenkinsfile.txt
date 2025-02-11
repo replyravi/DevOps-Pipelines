@@ -1,34 +1,28 @@
 pipeline {
     agent any
-    environment {
-        SHELL = "/bin/sh"
-        PATH = "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-    }
     stages {
         stage('Clone RepoA') {
             steps {
-                script {
-                    git credentialsId: 'github-cred', url: 'https://replyravi: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@github.com/replyravi/RepoA.git'
-                }
+                git 'https://github.com/replyravi/RepoA.git'
             }
         }
-        stage('Generate Doxygen Config') {
+        stage('Generate Doxygen Warnings') {
             steps {
                 sh 'doxygen -g Doxyfile'
-                sh 'sed -i "" "s|INPUT.*|INPUT = src|" Doxyfile'
-                sh 'sed -i "" "s|GENERATE_HTML.*|GENERATE_HTML = YES|" Doxyfile'
-                sh 'sed -i "" "s|GENERATE_LATEX.*|GENERATE_LATEX = NO|" Doxyfile'
+                sh 'sed -i "s|WARN_LOGFILE.*|WARN_LOGFILE = warnings.log|" Doxyfile'
+                sh 'doxygen Doxyfile'
             }
         }
-        stage('Run Doxygen') {
+        stage('Clone RepoC and Run Parser') {
             steps {
-                sh '/bin/sh -c "doxygen Doxyfile"'
+                git 'https://github.com/replyravi/RepoC.git'
+                sh 'pip install -r RepoC/requirements.txt'
+                sh 'python RepoC/parser.py warnings.log warnings.csv'
             }
         }
-        stage('Archive Documentation') {
+        stage('Archive Warnings CSV') {
             steps {
-                sh '/bin/sh -c "tar -czf doc.tar.gz html/"'
-                archiveArtifacts artifacts: 'doc.tar.gz'
+                archiveArtifacts artifacts: 'warnings.csv'
             }
         }
     }
