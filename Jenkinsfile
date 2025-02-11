@@ -18,12 +18,14 @@ environment {
     }
 }
         stage('Clone RepoC and Run Parser') {
-            steps {
-                git 'https://github.com/replyravi/RepoC.git'
-                sh 'pip install -r RepoC/requirements.txt'
-                sh 'python RepoC/parser.py warnings.log warnings.csv'
-            }
-        }
+    steps {
+        git 'https://github.com/replyravi/RepoC.git'
+        sh 'python3 -m pip install --upgrade pip'   // Ensure pip is available
+        sh 'python3 -m pip install -r RepoC/requirements.txt'
+        sh 'python3 RepoC/parser.py warnings.log warnings.csv'
+    }
+}
+
         stage('Archive Warnings CSV') {
             steps {
                 archiveArtifacts artifacts: 'warnings.csv'
