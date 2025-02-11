@@ -14,10 +14,10 @@ pipeline {
         }
         stage('Generate Doxygen Config') {
             steps {
-                sh '/bin/sh -c "doxygen -g Doxyfile"'
-                sh '/bin/sh -c "sed -i \"s|INPUT.*|INPUT = src|\" Doxyfile"'
-                sh '/bin/sh -c "sed -i \"s|GENERATE_HTML.*|GENERATE_HTML = YES|\" Doxyfile"'
-                sh '/bin/sh -c "sed -i \"s|GENERATE_LATEX.*|GENERATE_LATEX = NO|\" Doxyfile"'
+                sh 'doxygen -g Doxyfile'
+                sh 'sed -i "" "s|INPUT.*|INPUT = src|" Doxyfile'
+                sh 'sed -i "" "s|GENERATE_HTML.*|GENERATE_HTML = YES|" Doxyfile'
+                sh 'sed -i "" "s|GENERATE_LATEX.*|GENERATE_LATEX = NO|" Doxyfile'
             }
         }
         stage('Run Doxygen') {
