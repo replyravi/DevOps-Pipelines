@@ -19,18 +19,21 @@ environment {
 }
     stage('Clone RepoC and Run Parser') {
     steps {
-        git 'https://github.com/replyravi/RepoC.git'
         sh '''
-            ls -la RepoC  # Verify RepoC contains parser.py and requirements.txt
+            rm -rf RepoC  # Ensure clean state
+            git clone https://github.com/replyravi/RepoC.git
+            ls -la RepoC  # Verify RepoC exists
+            cd RepoC
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade pip
-            pip install -r RepoC/requirements.txt || echo "No dependencies found"
-            python RepoC/parser.py warnings.log warnings.csv
+            pip install -r requirements.txt || echo "No dependencies found"
+            python parser.py ../warnings.log ../warnings.csv
             deactivate
         '''
     }
 }
+
 
 
         stage('Archive Warnings CSV') {
