@@ -23,12 +23,14 @@ environment {
         sh '''
             python3 -m venv venv
             source venv/bin/activate
-            pip install -r RepoC/requirements.txt
+            pip install --upgrade pip
+            pip install -r RepoC/requirements.txt || echo "No dependencies found"
             python RepoC/parser.py warnings.log warnings.csv
             deactivate
         '''
     }
 }
+
 
 
         stage('Archive Warnings CSV') {
