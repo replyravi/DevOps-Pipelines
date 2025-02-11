@@ -17,10 +17,11 @@ environment {
         sh 'doxygen Doxyfile'
     }
 }
-        stage('Clone RepoC and Run Parser') {
+    stage('Clone RepoC and Run Parser') {
     steps {
         git 'https://github.com/replyravi/RepoC.git'
         sh '''
+            ls -la RepoC  # Verify RepoC contains parser.py and requirements.txt
             python3 -m venv venv
             source venv/bin/activate
             pip install --upgrade pip
@@ -30,7 +31,6 @@ environment {
         '''
     }
 }
-
 
 
         stage('Archive Warnings CSV') {
